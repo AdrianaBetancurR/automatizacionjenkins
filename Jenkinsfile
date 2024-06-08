@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clonar el Repositorio'){
             steps {
-                git branch: 'main', url: 'https://github.com/julioiud/micro-2024ii.git'
+                git branch: 'main', url: 'https://github.com/AdrianaBetancurR/automatizacionjenkins.git'
             }
         }
         stage('Construir imagen de Docker'){
