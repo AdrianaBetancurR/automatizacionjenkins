@@ -1,41 +1,49 @@
-version : "3.7"
-services :
-  proyectos-micro :
-    container_name : proyectos-micro
-    image : proyectos-micro:v1
-    build :
+version: "3.7"
+services:
+  proyectos-micro:
+    container_name: proyectos-micro
+    image: proyectos-micro:v1
+    build:
       context: .
-    ports : 
-      - "3001"
-    networks :
+    ports: 
+      - "3001:3001"
+    networks:
       - proyectos-app
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT=3001
 
-  proyectos-micro-2 :
-    container_name : proyectos-micro-2
-    image : proyectos-micro:v1
-    ports : 
-      - "3001"
-    networks :
-      - proyectos-app  
+  proyectos-micro-2:
+    container_name: proyectos-micro-2
+    image: proyectos-micro:v1
+    ports: 
+      - "3001:3001"
+    networks:
+      - proyectos-app
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT=3001
 
-  proyectos-micro-3 :
-    container_name : proyectos-micro-3
-    image : proyectos-micro:v1
-    ports : 
-      - "3001"
-    networks :
-      - proyectos-app  
-      
+  proyectos-micro-3:
+    container_name: proyectos-micro-3
+    image: proyectos-micro:v1
+    ports: 
+      - "3001:3001"
+    networks:
+      - proyectos-app
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT=3001
 
-  balanceador :
-    container_name : balanceador
-    image : balanceador:v1
-    build :
+  balanceador:
+    container_name: balanceador
+    image: balanceador:v1
+    build:
       context: ./balanceador
-    ports : 
+    ports: 
       - "3002:80"
-    networks :
+    networks:
       - proyectos-app
 
-networks :
-  proyectos-app :
+networks:
+  proyectos-app:
