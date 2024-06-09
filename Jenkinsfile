@@ -2,28 +2,26 @@ pipeline {
     agent any
 
     stages {
-        stage('Clonar el Repositorio'){
+        stage('Clonar el Repositorio') {
             steps {
                 git branch: 'main', url: 'https://github.com/AdrianaBetancurR/automatizacionjenkins.git'
             }
         }
-        stage('Construir imagen de Docker'){
+        stage('Construir imagen de Docker') {
             steps {
                 script {
-                    withCredentials([
-                        string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
-                    ]) {
+                    withCredentials([string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')]) {
+                        // Construir la imagen de Docker con el argumento de build MONGO_URI
                         docker.build('proyectos-micro:v1', '--build-arg MONGO_URI=${MONGO_URI} .')
                     }
                 }
             }
         }
-        stage('Desplegar contenedores Docker'){
+        stage('Desplegar contenedores Docker') {
             steps {
                 script {
-                    withCredentials([
-                            string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
-                    ]) {
+                    withCredentials([string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')]) {
+                        // Desplegar los contenedores usando docker-compose
                         sh 'docker-compose up -d'
                     }
                 }
